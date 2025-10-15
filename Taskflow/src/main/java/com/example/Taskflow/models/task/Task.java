@@ -1,4 +1,4 @@
-package com.example.Taskflow.models.Task;
+package com.example.Taskflow.models.task;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

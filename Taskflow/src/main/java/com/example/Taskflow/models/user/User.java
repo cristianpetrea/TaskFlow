@@ -1,4 +1,4 @@
-package com.example.Taskflow.models.User;
+package com.example.Taskflow.models.user;
 
 import lombok.*;
 

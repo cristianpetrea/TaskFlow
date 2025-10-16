@@ -1,9 +1,8 @@
 package com.example.Taskflow.controller.user;
 
 
-import com.example.Taskflow.dto.user.UserRegisterRequest;
-import com.example.Taskflow.dto.user.UserResponse;
-import com.example.Taskflow.models.user.User;
+import com.example.Taskflow.dto.user.input.UserRegisterRequest;
+import com.example.Taskflow.dto.user.output.UserResponse;
 import com.example.Taskflow.service.user.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

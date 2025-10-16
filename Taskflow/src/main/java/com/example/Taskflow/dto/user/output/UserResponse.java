@@ -1,4 +1,4 @@
-package com.example.Taskflow.dto.user;
+package com.example.Taskflow.dto.user.output;
 
 import lombok.Value;
 

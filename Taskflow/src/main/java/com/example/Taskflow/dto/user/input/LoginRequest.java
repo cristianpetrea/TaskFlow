@@ -1,15 +1,11 @@
-package com.example.Taskflow.dto.user;
+package com.example.Taskflow.dto.user.input;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class UserRegisterRequest {
-
-    @NotBlank
-    private String name;
-
+public class LoginRequest {
     @NotBlank
     @Email
     private String email;

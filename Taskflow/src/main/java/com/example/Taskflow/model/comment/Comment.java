@@ -1,7 +1,7 @@
-package com.example.Taskflow.models.comment;
+package com.example.Taskflow.model.comment;
 
-import com.example.Taskflow.models.task.Task;
-import com.example.Taskflow.models.user.User;
+import com.example.Taskflow.model.task.Task;
+import com.example.Taskflow.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

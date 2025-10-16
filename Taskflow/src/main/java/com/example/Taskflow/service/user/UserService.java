@@ -1,8 +1,8 @@
 package com.example.Taskflow.service.user;
 
-import com.example.Taskflow.dto.user.UserRegisterRequest;
-import com.example.Taskflow.dto.user.UserResponse;
-import com.example.Taskflow.models.user.User;
+import com.example.Taskflow.dto.user.input.UserRegisterRequest;
+import com.example.Taskflow.dto.user.output.UserResponse;
+import com.example.Taskflow.model.user.User;
 import com.example.Taskflow.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +16,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
 
     public UserResponse registerUser(UserRegisterRequest request){
         if(userRepository.existsByEmail(request.getEmail())){

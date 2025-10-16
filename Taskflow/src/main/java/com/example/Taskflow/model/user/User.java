@@ -1,10 +1,10 @@
-package com.example.Taskflow.models.user;
+package com.example.Taskflow.model.user;
 
 
-import com.example.Taskflow.models.comment.Comment;
-import com.example.Taskflow.models.log.ActivityLog;
-import com.example.Taskflow.models.project.Project;
-import com.example.Taskflow.models.task.Task;
+import com.example.Taskflow.model.comment.Comment;
+import com.example.Taskflow.model.log.ActivityLog;
+import com.example.Taskflow.model.project.Project;
+import com.example.Taskflow.model.task.Task;
 import jakarta.persistence.*;
 import lombok.*;
 

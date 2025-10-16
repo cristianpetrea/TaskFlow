@@ -1,32 +1,35 @@
-package com.example.Taskflow.models.project;
+package com.example.Taskflow.model.log;
 
-import com.example.Taskflow.models.user.User;
+import com.example.Taskflow.model.task.Task;
+import com.example.Taskflow.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+
 @Entity
-@Table(name="projects")
+@Table(name="activity_log")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+public class ActivityLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
-    private String name;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    private String action;
 
     @Column(nullable = false)
-    private Timestamp creation_date;
+    private Timestamp action_date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name="user_id",nullable = false)
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="task_id",nullable = false)
+    private Task task;
 }

@@ -1,8 +1,8 @@
-package com.example.Taskflow.models.task;
+package com.example.Taskflow.model.task;
 
-import com.example.Taskflow.models.comment.Comment;
-import com.example.Taskflow.models.log.ActivityLog;
-import com.example.Taskflow.models.user.User;
+import com.example.Taskflow.model.comment.Comment;
+import com.example.Taskflow.model.log.ActivityLog;
+import com.example.Taskflow.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

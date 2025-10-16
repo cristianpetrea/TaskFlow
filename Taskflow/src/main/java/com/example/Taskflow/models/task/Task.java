@@ -1,5 +1,7 @@
 package com.example.Taskflow.models.task;
 
+import com.example.Taskflow.models.comment.Comment;
+import com.example.Taskflow.models.log.ActivityLog;
 import com.example.Taskflow.models.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,4 +43,10 @@ public class Task {
 
     @ManyToMany(mappedBy = "userTask",fetch = FetchType.LAZY)
     private Set<User> user=new HashSet<>();
+
+    @OneToMany(mappedBy = "task",fetch =FetchType.LAZY)
+    private Set<ActivityLog> taskLog=new HashSet<>();
+
+    @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
+    private Set<Comment> taskComment=new HashSet<>();
 }

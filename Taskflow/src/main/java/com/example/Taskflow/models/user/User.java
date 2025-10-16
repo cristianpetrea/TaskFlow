@@ -1,6 +1,8 @@
 package com.example.Taskflow.models.user;
 
 
+import com.example.Taskflow.models.comment.Comment;
+import com.example.Taskflow.models.log.ActivityLog;
 import com.example.Taskflow.models.project.Project;
 import com.example.Taskflow.models.task.Task;
 import jakarta.persistence.*;
@@ -46,5 +48,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="task_id")
     )
     private Set<Task> userTask = new HashSet<>();
+
+    @OneToMany(mappedBy = "user",fetch =FetchType.LAZY)
+    private Set<ActivityLog> userLogs=new HashSet<>();
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private Set<Comment> userComment=new HashSet<>();
 
 }

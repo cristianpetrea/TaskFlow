@@ -36,7 +36,7 @@ public class User {
     private String role;
 
     @Column(nullable = false)
-    private Timestamp register_date;
+    private Timestamp registerDate;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Project> ownedProject=new HashSet<>();

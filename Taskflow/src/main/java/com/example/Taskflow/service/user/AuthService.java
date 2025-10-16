@@ -3,6 +3,8 @@ package com.example.Taskflow.service.user;
 
 import com.example.Taskflow.dto.user.input.LoginRequest;
 import com.example.Taskflow.dto.user.output.LoginResponse;
+import com.example.Taskflow.dto.user.output.UserResponse;
+import com.example.Taskflow.exception.UserNotFoundException;
 import com.example.Taskflow.model.user.User;
 import com.example.Taskflow.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.Taskflow.security.JwtTokenProvider;
+
 
 @AllArgsConstructor
 @Service
@@ -32,4 +35,5 @@ public class AuthService {
 
         return new LoginResponse(jwt);
     }
+
 }

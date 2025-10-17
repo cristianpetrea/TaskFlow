@@ -1,6 +1,7 @@
 package com.example.Taskflow.config;
 
 import com.example.Taskflow.exception.EmailAlreadyExistsException;
+import com.example.Taskflow.exception.ProjectAlreadyExistsException;
 import com.example.Taskflow.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleUserNotFound(UserNotFoundException ux){
 
         return new ResponseEntity<>(ux.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleProjectAlreadyExists(ProjectAlreadyExistsException pe){
+        return new ResponseEntity<>(pe.getMessage(),HttpStatus.CONFLICT);
     }
 }

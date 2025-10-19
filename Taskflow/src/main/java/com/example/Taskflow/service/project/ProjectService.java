@@ -1,8 +1,11 @@
 package com.example.Taskflow.service.project;
 
+import com.example.Taskflow.dto.project.input.ProjectDeleteRequest;
 import com.example.Taskflow.dto.project.input.ProjectRequest;
 import com.example.Taskflow.dto.project.output.ProjectResponse;
+import com.example.Taskflow.exception.NoAccesException;
 import com.example.Taskflow.exception.ProjectAlreadyExistsException;
+import com.example.Taskflow.exception.ProjectNotFoundException;
 import com.example.Taskflow.exception.UserNotFoundException;
 import com.example.Taskflow.model.project.Project;
 import com.example.Taskflow.model.user.User;
@@ -11,6 +14,7 @@ import com.example.Taskflow.repository.user.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
@@ -44,6 +48,21 @@ public class ProjectService {
                 projectSaved.getCreation_date(),
                 projectSaved.getUser().getId()
         );
+
+    }
+
+    public void deleteProject(String userEmail, ProjectDeleteRequest request){
+        User user=userRepository.findByEmail(userEmail)
+                .orElseThrow(()-> new UserNotFoundException("Nu e conectat niciun utilizator"));
+
+        Project project=projectRepository.findById(request.getProjectId())
+                .orElseThrow(()-> new ProjectNotFoundException("Nu exista un proiect cu acest ID!"));
+
+        if(project.getUser().getId()==user.getId()){
+            projectRepository.delete(project);
+        }else{
+            throw new NoAccesException("Nu ai permisiunea sa stergi acest proiect!");
+        }
 
     }
 }

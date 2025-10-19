@@ -7,9 +7,9 @@ import lombok.Data;
 public class ProjectRequest {
 
     @NotBlank
-    String name;
+    private String name;
 
     @NotBlank
-    String description;
+    private String description;
 
 }

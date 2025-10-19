@@ -1,7 +1,9 @@
 package com.example.Taskflow.controller.project;
 
+import com.example.Taskflow.dto.project.input.ProjectDeleteRequest;
 import com.example.Taskflow.dto.project.input.ProjectRequest;
 import com.example.Taskflow.dto.project.output.ProjectResponse;
+import com.example.Taskflow.exception.NoAccesException;
 import com.example.Taskflow.service.project.ProjectService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,20 @@ public class ProjectController {
         return ResponseEntity
                 .created(location)
                 .body(projectResponse);
+    }
+
+    @PostMapping("/deleteProject")
+    public ResponseEntity<Void> deleteProject(@Valid @RequestBody ProjectDeleteRequest request,Authentication authentication)
+    {
+        String userEmail=authentication.getName();
+
+        try{
+            projectService.deleteProject(userEmail,request);
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (NoAccesException n){
+            throw n;
+        }
     }
 
 }

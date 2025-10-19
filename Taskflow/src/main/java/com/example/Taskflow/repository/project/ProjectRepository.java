@@ -6,7 +6,8 @@ import java.util.Optional;
 
 public interface ProjectRepository extends JpaRepository<Project,Integer> {
 
-    Optional<Project> findById(int userId);
-
+    Optional<Project> findByName(String projectName);
     boolean existsByName(String name);
+
+    void deleteById(int projectId);
 }

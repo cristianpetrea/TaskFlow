@@ -2,6 +2,7 @@ package com.example.Taskflow.controller.project;
 
 import com.example.Taskflow.dto.project.input.ProjectDeleteRequest;
 import com.example.Taskflow.dto.project.input.ProjectRequest;
+import com.example.Taskflow.dto.project.input.ProjectUpdateRequest;
 import com.example.Taskflow.dto.project.output.ProjectResponse;
 import com.example.Taskflow.exception.NoAccesException;
 import com.example.Taskflow.service.project.ProjectService;
@@ -56,6 +57,15 @@ public class ProjectController {
         }catch (NoAccesException n){
             throw n;
         }
+    }
+
+    @PostMapping("/updateProject")
+    public ResponseEntity<ProjectResponse> updateProject(@Valid@RequestBody ProjectUpdateRequest request,Authentication authentication){
+        String userEmail=authentication.getName();
+
+        ProjectResponse projectResponse=projectService.projectUpdate(userEmail,request);
+
+        return ResponseEntity.ok(projectResponse);
     }
 
 }

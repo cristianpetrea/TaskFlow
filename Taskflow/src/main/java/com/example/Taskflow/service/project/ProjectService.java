@@ -2,6 +2,7 @@ package com.example.Taskflow.service.project;
 
 import com.example.Taskflow.dto.project.input.ProjectDeleteRequest;
 import com.example.Taskflow.dto.project.input.ProjectRequest;
+import com.example.Taskflow.dto.project.input.ProjectUpdateRequest;
 import com.example.Taskflow.dto.project.output.ProjectResponse;
 import com.example.Taskflow.exception.NoAccesException;
 import com.example.Taskflow.exception.ProjectAlreadyExistsException;
@@ -64,5 +65,34 @@ public class ProjectService {
             throw new NoAccesException("Nu ai permisiunea sa stergi acest proiect!");
         }
 
+    }
+
+    public ProjectResponse projectUpdate(String userEmail, ProjectUpdateRequest request){
+        User user=userRepository.findByEmail(userEmail)
+                .orElseThrow(()-> new UserNotFoundException("Nu e conectat niciun utilizator!"));
+
+        Project project=projectRepository.findById(request.getProjectId())
+                .orElseThrow(()-> new ProjectNotFoundException("Nu exista un proiect cu acest ID!"));
+
+
+        if(request.getName()!=null&&!request.getName().trim().isEmpty()){
+            project.setName(request.getName());
+        }
+        if(request.getDescription()!=null&&!request.getDescription().trim().isEmpty()){
+            project.setDescription(request.getDescription());
+        }
+        if(project.getUser().getId()!=user.getId()){
+            throw new NoAccesException("Nu ai acces sa faci aeasta modificare!");
+        }
+
+        Project newProject=projectRepository.save(project);
+
+        return new ProjectResponse(
+                newProject.getId(),
+                newProject.getName(),
+                newProject.getDescription(),
+                newProject.getCreation_date(),
+                newProject.getUser().getId()
+        );
     }
 }

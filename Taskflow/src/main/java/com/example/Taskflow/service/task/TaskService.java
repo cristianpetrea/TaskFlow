@@ -2,7 +2,10 @@ package com.example.Taskflow.service.task;
 
 
 import com.example.Taskflow.dto.task.input.TaskRequest;
+import com.example.Taskflow.dto.task.input.TaskUpdateRequest;
 import com.example.Taskflow.dto.task.output.TaskResponse;
+import com.example.Taskflow.exception.InvalidTaskException;
+import com.example.Taskflow.exception.NoAccesException;
 import com.example.Taskflow.exception.ProjectNotFoundException;
 import com.example.Taskflow.exception.UserNotFoundException;
 import com.example.Taskflow.model.project.Project;
@@ -33,6 +36,10 @@ public class TaskService {
         Project project=projectRepository.findById(request.getProjectId())
                 .orElseThrow(()-> new ProjectNotFoundException("Nu s-a gasit un proiect cu acest id!"));
 
+        if(project.getUser().getId()!=user.getId())
+        {
+            throw new NoAccesException("Nu ai acces pe acest proiect!");
+        }
         Task newTask = new Task();
 
         newTask.setTitle(request.getTitle());
@@ -53,6 +60,50 @@ public class TaskService {
                 createTask.getCreationDate(),
                 createTask.getDeadline(),
                 createTask.getProject().getId()
+        );
+    }
+
+    public TaskResponse updateTask(String userEmail, TaskUpdateRequest request) {
+        User authenticatedUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException("Nu e niciun user conectat!"));
+
+        Task task = taskRepository.findById(request.getTaskId())
+                .orElseThrow(() -> new InvalidTaskException("Nu exista un task valid!"));
+
+        Project project = task.getProject();
+
+        if (project.getUser().getId()!=authenticatedUser.getId()) {
+            throw new NoAccesException("Nu ai permisiunea de a modifica acest task!");
+        }
+
+        if(request.getTitle()!=null && !request.getTitle().trim().isEmpty()){
+            task.setTitle(request.getTitle());
+        }
+
+        if(request.getDescription()!=null && !request.getDescription().trim().isEmpty()){
+            task.setDescription(request.getDescription());
+        }
+        if(request.getPriority()!=null && !request.getPriority().trim().isEmpty()){
+            task.setPriority(request.getPriority());
+        }
+        if(request.getDeadline()!=null){
+            task.setDeadline(request.getDeadline());
+        }
+        if(request.getStatus()!=null && !request.getStatus().trim().isEmpty()){
+            task.setStatus(request.getStatus());
+        }
+
+        Task updatedTask = taskRepository.save(task);
+
+        return new TaskResponse(
+                updatedTask.getId(),
+                updatedTask.getTitle(),
+                updatedTask.getDescription(),
+                updatedTask.getStatus(),
+                updatedTask.getPriority(),
+                updatedTask.getCreationDate(),
+                updatedTask.getDeadline(),
+                updatedTask.getProject().getId()
         );
     }
 }

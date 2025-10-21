@@ -34,4 +34,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleNoAccess(NoAccesException ne){
         return new ResponseEntity<>(ne.getMessage(),HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleInvalidTask(InvalidTaskException it){
+        return new ResponseEntity<>(it.getMessage(),HttpStatus.CONFLICT);
+    }
 }

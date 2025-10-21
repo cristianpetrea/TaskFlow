@@ -1,6 +1,7 @@
 package com.example.Taskflow.controller.task;
 
 import com.example.Taskflow.dto.task.input.TaskRequest;
+import com.example.Taskflow.dto.task.input.TaskUpdateRequest;
 import com.example.Taskflow.dto.task.output.TaskResponse;
 import com.example.Taskflow.service.task.TaskService;
 import jakarta.validation.Valid;
@@ -27,5 +28,12 @@ public class Taskcontroller {
         TaskResponse taskResponse=taskService.createTask(email,request);
 
         return new ResponseEntity<>(taskResponse, HttpStatus.CREATED);
+    }
+    @PostMapping("/updateTask")
+    public ResponseEntity<TaskResponse> updateTask(@Valid@RequestBody TaskUpdateRequest request,Authentication authentication){
+        String email=authentication.getName();
+        TaskResponse taskResponse=taskService.updateTask(email,request);
+
+        return ResponseEntity.ok(taskResponse);
     }
 }

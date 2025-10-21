@@ -2,13 +2,14 @@ package com.example.Taskflow.model.task;
 
 import com.example.Taskflow.model.comment.Comment;
 import com.example.Taskflow.model.log.ActivityLog;
+import com.example.Taskflow.model.project.Project;
 import com.example.Taskflow.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class Task {
     private String priority;
 
     @Column(nullable = false)
-    private Timestamp creation_date;
+    private Timestamp creationDate;
 
     @Column(nullable = false)
     private Date deadline;
@@ -49,4 +50,8 @@ public class Task {
 
     @OneToMany(mappedBy = "task",fetch = FetchType.LAZY)
     private Set<Comment> taskComment=new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="project_id",nullable = false)
+    private Project project;
 }
